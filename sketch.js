@@ -1,21 +1,19 @@
-// define constants related to the program
-const BACKGROUND_CLR = "#FFD4CA";
-const BUBBLE_CLR = "#B084CC";
-
 // represents a bouncy ball in the application
 class Ball {
 
     // initialise a new ball object
-    constructor(x, y, diam, direction, speed) {
+    constructor(x, y, diam, direction, speed, clr) {
         this.x = x;
         this.y = y;
         this.diam = diam;
         this.direction = direction;
         this.speed = speed;
+        this.clr = clr
     }
 
     // draw the ball to the screen
     draw() {
+        fill(this.clr);
         circle(this.x, this.y, this.diam);
         this.move();
     }
@@ -50,23 +48,25 @@ class Ball {
 }
 
 // store our balls in an array - initialise them in the setup function
+const clrs = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
+const n = clrs.length;
 const balls = [];
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
 
     // use a for loop to initilise the balls
-    for(let i = 1; i <= 10; i ++) {
-        balls.push(new Ball(width/2, height/2, 10 * i, i * Math.PI / 5, 11 - i))
+    for(let i in clrs) {
+        balls.push(new Ball(width/2, height/2, 50 + 10*i, 2 * i * Math.PI / n, n + 1 - i, clrs[i]))
     }
 }
 
 function draw() {
     // draw the background
-    background(BACKGROUND_CLR);
+    background(0);
 
-    // prepare to draw th balls
-    fill(BUBBLE_CLR); noStroke();
+    // prepare to draw the balls
+    noStroke();
 
     // draw the balls
     balls.forEach(ball => {
